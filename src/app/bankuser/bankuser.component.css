@@ -1,0 +1,14 @@
+.form-head{
+    margin-left: 0.5cm;
+    clear: both;
+    text-align: center;
+  }
+.bankuser{
+  text-align: center;
+}
+.bankmanager-button{
+  width: 40%;
+}
+.customersearch-button{
+  width: 40%;
+}

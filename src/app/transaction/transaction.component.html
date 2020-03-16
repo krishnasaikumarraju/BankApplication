@@ -1,0 +1,61 @@
+<div fxLayoutAlign="center center">
+  <div fxFlex="95">
+    <div>
+      <h3 fxFlex="100" fxLayoutAlign="center center">Customer Transaction History</h3>
+    </div>
+    <div>
+      <mat-form-field fxFlex="100">
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+      </mat-form-field>
+    </div>
+    <div>
+      <table fxFlex="100" mat-table [dataSource]="transactionSource" class="mat-elevation-z8">
+        <ng-container matColumnDef="accountno">
+          <th mat-header-cell *matHeaderCellDef> Account Number </th>
+          <td mat-cell *matCellDef="let element"> {{element.accountno}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="mode">
+          <th mat-header-cell *matHeaderCellDef> Transaction Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.mode}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="transactionAmount">
+          <th mat-header-cell *matHeaderCellDef> Transaction Amount </th>
+          <td mat-cell *matCellDef="let element"> {{element.transactionAmount}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="autherizorName">
+          <th mat-header-cell *matHeaderCellDef> Autherizor Name</th>
+          <td mat-cell *matCellDef="let element"> {{element.autherizorName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="transactionDate">
+          <th mat-header-cell *matHeaderCellDef> Transaction Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.transactionDate}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="balance">
+          <th mat-header-cell *matHeaderCellDef> Balance </th>
+          <td mat-cell *matCellDef="let element"> 1000000 </td>
+        </ng-container>
+
+        <ng-container matColumnDef="option">
+          <th mat-header-cell *matHeaderCellDef> Option </th>
+          <td mat-cell *matCellDef="let element" class="option-color" (click)="printView(element)"> View/Print </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+    <div>
+      <mat-paginator [length]="10" [pageSize]="5" [pageSizeOptions]="[5, 10, 50, 100]">
+      </mat-paginator>
+    </div>
+    <div>
+      <button fxLayoutAlign="start center" mat-raised-button color="accent" type="submit"
+        routerLink="/customer">Back</button>
+    </div>
+  </div>
+
+</div>

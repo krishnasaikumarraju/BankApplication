@@ -1,0 +1,26 @@
+<section>
+    <h2 class="form-head">Register</h2>
+    <form class="form-form" [formGroup]="registrationForm">
+        <mat-form-field class="form-full-width">
+            <input matInput type="text" placeholder="Name" formControlName="name">
+        </mat-form-field>
+        <mat-form-field class="form-full-width">
+            <input matInput type="text" placeholder="Username" formControlName="username">
+        </mat-form-field>
+        <mat-form-field class="form-full-width">
+            <input matInput type="text" placeholder="Email" formControlName="email">
+        </mat-form-field>
+        <mat-form-field class="form-full-width">
+            <input matInput type="password" placeholder="Password" formControlName="password">
+        </mat-form-field>
+        <button mat-raised-button color="accent" class="form-button" type="submit" [disabled]="!registrationForm.valid" (click)="onRegisterSubmit()">SignUp</button>
+    
+        <div>
+        <button mat-raised-button color="accent" class="form-button" type="submit" (click)="signInUsingMicrosoft()">SignInOutlook</button>
+        </div>
+    </form>
+
+
+</section>
+
+  

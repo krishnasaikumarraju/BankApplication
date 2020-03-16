@@ -1,0 +1,21 @@
+.form-head{
+    margin-left: 0.5cm;
+    clear: both;
+    text-align: center;
+  }
+.bankmanager{
+  text-align: center;
+}
+
+.addcustomer-button{
+  width: 40%;
+}
+.customer-button{
+  width: 40%;
+}
+.back-button{
+  clear: both;
+  text-align: center;
+  margin-top: 20%; 
+
+}

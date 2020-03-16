@@ -1,0 +1,61 @@
+<!-- <p class="customer-head">
+  customer list use filters select customers
+</p> -->
+
+<mat-form-field class="customer-head" >
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+
+  
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+  
+    <ng-container matColumnDef="accountno">
+      <th mat-header-cell *matHeaderCellDef> Account Number </th>
+      <td mat-cell *matCellDef="let element"> {{element.accountno}} </td>
+    </ng-container>
+  
+ 
+    <ng-container matColumnDef="firstname">
+      <th mat-header-cell *matHeaderCellDef> Firstname </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstname}} </td>
+    </ng-container>
+  
+
+    <ng-container matColumnDef="lastname">
+      <th mat-header-cell *matHeaderCellDef> Lastname </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastname}} </td>
+    </ng-container>
+  
+    
+    <ng-container matColumnDef="postalcode">
+      <th mat-header-cell *matHeaderCellDef> Postalcode </th>
+      <td mat-cell *matCellDef="let element"> {{element.postalcode}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deposit">
+      <th mat-header-cell *matHeaderCellDef> Deposit </th>
+      <td mat-cell *matCellDef="let element"> <button mat-raised-button color="accent" class="deposit-button" type="submit" (click) = "profile(element)" routerLink="/deposit">Deposit</button></td>
+    </ng-container>
+
+    <ng-container matColumnDef="withdraw">
+      <th mat-header-cell *matHeaderCellDef> Withdraw </th>
+      <td mat-cell *matCellDef="let element"> <button mat-raised-button color="blue" class="withdraw-button" type="submit"  (click) = "profile(element)" routerLink="/withdraw">Withdraw</button></td>
+    </ng-container>
+
+    <ng-container matColumnDef="transaction">
+      <th mat-header-cell *matHeaderCellDef> Transaction </th>
+      <td mat-cell *matCellDef="let element"> <button mat-raised-button color="accent" class="transaction-button" type="submit" (click) = "profile(element)" routerLink="/transaction">Transactions</button></td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+  </table>
+  <mat-paginator [length]="100" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
+  
+
+
+  <button mat-raised-button color="accent" class="back-button" type="submit" routerLink="/bankmanager">Back</button>
+

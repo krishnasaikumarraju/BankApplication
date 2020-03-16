@@ -1,0 +1,20 @@
+.nav-header{
+width:100%;
+}
+.home-button{
+float: left;
+width: 10%;
+}
+.login-button{
+float: right;
+width: 10%;
+}
+.register-button{
+padding-left: 2%;
+float: right;
+width: 10%;
+}
+.logout-button{
+    float: right;
+    width: 10%;
+    }

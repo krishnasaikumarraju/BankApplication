@@ -1,0 +1,19 @@
+/* .customer-head{
+    clear:both;
+    text-align:center;
+} */
+/* .table-head{
+    text-align:center;
+} */
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+table {
+    width: 100%;
+  }
+
+.back-button{
+    margin-top: 10%;
+}

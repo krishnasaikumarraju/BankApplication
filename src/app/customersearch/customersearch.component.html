@@ -1,0 +1,23 @@
+<div fxLayoutAlign="center center">
+  <div fxFlex="97">
+    <div>
+      <h3 class="form-head"> Customer Search </h3>
+    </div>
+    <div>
+      <form [formGroup]="findCustomerForm">
+        <span fxFlex="30">
+          <mat-form-field class="form-full-width">
+            <input matInput type="number" placeholder="Account No" formControlName="accountno">
+          </mat-form-field>
+        </span>
+        <span fxFlex="30">
+          <button mat-raised-button color="primary" class="form-button" type="submit" [disabled]="!findCustomerForm.valid"
+          (click)="onSearchSubmit()">Submit</button>
+        </span>
+      </form>
+    </div>
+    <div>
+      <app-money-calculator></app-money-calculator>
+    </div>
+  </div>
+</div>

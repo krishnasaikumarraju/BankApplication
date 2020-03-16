@@ -1,0 +1,17 @@
+<div>
+    <div>
+        <span fxFlex="60" fxLayoutAlign="start center">
+            <button mat-raised-button color="accent" routerLink="/home">Home</button>
+        </span>
+        <span *ngIf="checkToken === '' " fxFlex="40" fxLayoutAlign="end center" fxLayoutGap="10px">
+            <span>
+                <button mat-raised-button color="accent" routerLink="/authenticate">Login</button> </span>
+            <span >
+                <button mat-raised-button color="primary" routerLink="/register">Register</button>
+            </span>
+        </span>
+        <span *ngIf="checkToken !== ''" fxLayoutAlign="end center" fxFlex="40">
+            <button mat-raised-button color="accent" (click)="onLogoutSubmit()">Logout</button>
+        </span>
+    </div>
+</div>

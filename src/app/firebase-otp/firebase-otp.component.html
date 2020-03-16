@@ -1,0 +1,22 @@
+<div id="phone-recaptcha-container"></div>
+<div>
+    <h4>
+        Withdraw Verification
+    </h4>
+    <form [formGroup]="otpForm">
+            <mat-form-field class="form-full-width">
+                <input matInput placeholder="eg +919087586961" formControlName="mobileNumber">
+            </mat-form-field>
+        <div>
+            <span fxFlex="50">
+                <button mat-raised-button color="accent" (click)="otpSubmit(otpForm.value)">Verify</button>
+            </span>
+            <span fxFlex="50">
+                <button mat-raised-button color="blue" (click)="cancelVerification('cancel')">Cancel</button>
+            </span>
+        </div>
+
+
+        <!-- </span> -->
+    </form>
+</div>

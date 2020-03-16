@@ -1,0 +1,67 @@
+<div>
+  <div>
+      <div fxLayoutAlign="start center">
+          <h3>Profile Details</h3>
+      </div>
+      <div>
+          <div fxFlex="70" class="profileDetails">
+              <div>
+                  <span fxFlex="47">{{setProfileObjectKey.accountNo}}</span>
+                  <span fxFlex="5">:</span>
+                  <span fxFlex="47">{{getProfileObject.accountno}}</span>
+              </div>
+              <div>
+                  <span fxFlex="47">{{setProfileObjectKey.name}}</span>
+                  <span fxFlex="5">:</span>
+                  <span fxFlex="47">{{getProfileObject.firstname}}{{getProfileObject.lastname}}</span>
+              </div>
+              <div>
+                  <span fxFlex="47">{{setProfileObjectKey.pincode}}</span>
+                  <span fxFlex="5">:</span>
+                  <span fxFlex="47">{{getProfileObject.postalcode}}</span>
+              </div>
+              <div>
+                  <span fxFlex="47">{{setProfileObjectKey.dob}}</span>
+                  <span fxFlex="5">:</span>
+                  <span fxFlex="47">{{getProfileObject.datetime}}</span>
+              </div>
+          </div>
+          <div fxFlex="30">
+              <img src="sdsafa">
+          </div>
+      </div>
+      <div fxLayoutAlign="start center">
+          <h3>Withdraw Amount</h3>
+      </div>
+      <div>
+          <form fxFlex="50" [formGroup]="withdrawForm">
+              <div>
+                  <div>
+                      <span fxFlex="30" fxLayoutAlign="center center">
+                          <button  mat-raised-button color="accent" (click)="subtractWithdrawAmount()">-</button>
+                      </span>
+                      <span fxFlex="40" fxLayoutAlign="center center">
+                          <mat-form-field class="form-full-width">
+                              <input matInput placeholder="Rupees" formControlName="transactionAmount" [(ngModel)] = "this.withdrawForm.value.transactionAmount">
+                          </mat-form-field>
+                      </span>
+                      <span fxFlex="30" fxLayoutAlign="center center">
+                          <button  mat-raised-button color="accent" (click)="addWithdrawAmount()" >+</button>
+                      </span>
+                  </div>
+              </div>
+
+              <div fxLayoutAlign="center center">
+                  <div fxFlex="50" fxLayoutAlign="center center">
+                      <button mat-raised-button color="primary" class="form-button" type="submit"
+                      [disabled]="!withdrawForm.valid" (click)="onWithdrawSubmit()">Submit</button>
+                  </div>
+              </div>
+
+          </form>
+      </div>
+      <div>
+          <button mat-raised-button color="accent" class="back-button" routerLink="/customer">Back</button>
+      </div>
+  </div>
+</div>

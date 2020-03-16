@@ -1,0 +1,51 @@
+<div fxLayoutAlign="center center">
+    <div fxFlex="90">
+        <div id="print-section">
+            <h4 fxLayoutAlign="center center">{{data.transactionProfile.transactionData.mode === 'deposit' ? 'Deposit': 'Withdraw'}} Details</h4>
+            <div>
+                <span fxFlex="45">Account Number</span>
+                <span fxFlex="10">:</span>
+                <span fxFlex="45">{{data.customerProfile.accountno}}</span>
+            </div>
+            <div>
+                <span fxFlex="45">Account Holder Name</span>
+                <span fxFlex="10">:</span>
+                <span fxFlex="45">{{data.customerProfile.firstname}} {{data.customerProfile.lastname}}</span>
+            </div>
+            <div>
+                <span fxFlex="45">Transaction Type</span>
+                <span fxFlex="10">:</span>
+                <span fxFlex="45">{{data.transactionProfile.transactionData.mode}}</span>
+            </div>
+            <div>
+                <span fxFlex="45">Transaction Date</span>
+                <span fxFlex="10">:</span>
+                <span fxFlex="45">{{data.transactionProfile.transactionData.transactionDate}}</span>
+            </div>
+            <div>
+                <span fxFlex="45">Transaction Amount</span>
+                <span fxFlex="10">:</span>
+                <span fxFlex="45">{{data.transactionProfile.transactionData.transactionAmount}}INR</span>
+            </div>
+            <div>
+                <span fxFlex="45">Bank Balance</span>
+                <span fxFlex="10">:</span>
+                <span fxFlex="45">1000000000INR</span>
+            </div>
+            <div>
+                <span fxFlex="45">Transaction Authorizor</span>
+                <span fxFlex="10">:</span>
+                <span fxFlex="45">{{data.transactionProfile.transactionData.autherizorName}}</span>
+            </div>
+        </div>
+        <div fxLayoutAlign="center center">
+            <span fxLayoutAlign="center center" fxFlex="50">
+                <button mat-raised-button color="grey" (click)="dialogRef.close()">cancel</button>
+            </span>
+            <span fxLayoutAlign="center center" fxFlex="50">
+                <button mat-raised-button color="accent" printSectionId="print-section" (click)="printTransaction()" ngxPrint>print</button>
+            </span>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,29 @@
+/* .form-head{
+    clear: both;
+    text-align: center;
+  } */
+  
+  .form-form {
+    display: flex;
+    flex-direction: column;
+      clear: both;
+      text-align: center;
+      min-width: 100px;
+      max-width: 250px;
+      /* width: 20%; */
+      margin-left: 0.5cm;
+    }
+    
+    .form-full-width {
+      width: 100%;
+    }
+    .form-button{
+      float: center;
+      width: 50%;
+    }
+    .back-button{
+        clear: both;
+        text-align: center;
+        margin-top: 10%; 
+      
+      }
