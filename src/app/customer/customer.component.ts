@@ -17,8 +17,10 @@ export class CustomerComponent implements OnInit {
   listCustomerData: any = [];
   accountno:any ;
   public dataSource;
-  constructor(private backendApiService : BackendApiService, private router : Router) { 
-    console.log("customercall")
+  constructor(
+    private backendApiService : BackendApiService, 
+    private router : Router
+    ) { 
   }
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -28,9 +30,9 @@ export class CustomerComponent implements OnInit {
   }
 
 public getCustomerList(): void {
-    this.backendApiService.listCustomerData().subscribe((listCustomerData: Response) => {
+  const reqUrl = "customers-list"
+    this.backendApiService.httpServiceGet(reqUrl).subscribe((listCustomerData: Response) => {
       this.listCustomerData = listCustomerData;
-      console.log('customers data', listCustomerData);
       this.dataSource = new MatTableDataSource(this.listCustomerData);
       this.dataSource.paginator = this.paginator;
   });
@@ -44,7 +46,7 @@ public applyFilter(filterValue: string) {
 // public deposit
 
 public profile(selectedProfile): void{
-this.backendApiService.setProfileDetails(selectedProfile);
+this.backendApiService.setCustomerProfile(selectedProfile);
 }
 
 }

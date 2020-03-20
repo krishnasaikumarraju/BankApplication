@@ -5,19 +5,199 @@
     </div>
     <div>
       <form [formGroup]="findCustomerForm">
-        <span fxFlex="30">
+        <span fxFlex="15">
           <mat-form-field class="form-full-width">
             <input matInput type="number" placeholder="Account No" formControlName="accountno">
           </mat-form-field>
         </span>
-        <span fxFlex="30">
-          <button mat-raised-button color="primary" class="form-button" type="submit" [disabled]="!findCustomerForm.valid"
-          (click)="onSearchSubmit()">Submit</button>
+        <span fxFlex="85">
+          <button mat-raised-button color="primary" class="form-button" type="submit"
+            [disabled]="!findCustomerForm.valid" (click)="onSearchSubmit()">Submit</button>
         </span>
       </form>
     </div>
-    <div>
-      <app-money-calculator></app-money-calculator>
+    <!-- <div>
+      <app-customer-profile-detailed></app-customer-profile-detailed>
+    </div> -->
+    <div fxLayoutGap="10px">
+      <span fxFlex="70">
+        <div *ngIf="accountSummary else profileSummary">
+          <div>
+            <h4 fxLayoutAlign="center center">
+              Account Summary
+            </h4>
+          </div>
+          <mat-accordion>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title fxFlex="30">
+                  Savings Account
+                </mat-panel-title>
+                <mat-panel-description *ngIf="profileDetail" fxFlex="70" fxLayoutAlign="end center">
+                  Total Available Balance: INR 602.10
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div *ngIf="profileDetail else noProfile">
+                <div>
+                  <span fxFlex="20">
+                    Account Number
+                  </span>
+                  <span fxFlex="20">
+                    Branch
+                  </span>
+                  <span fxFlex="30">
+                    Name
+                  </span>
+                  <span fxFlex="20">
+                    Available Balance
+                  </span>
+                  <span fxFlex="10">
+                    Detailed
+                  </span>
+                </div>
+                <div>
+                  <span fxFlex="20">
+                    {{profileDetail.accountno}}
+                  </span>
+                  <span fxFlex="20">
+                    {{profileDetail.postalcode}}
+                  </span>
+                  <span fxFlex="30">
+                    {{profileDetail.firstname}} {{profileDetail.lastname}}
+                  </span>
+                  <span fxFlex="20">
+                    602.10
+                  </span>
+                  <span fxFlex="10" class="option-color">
+                    <div (click)="profileDetailedPage()">
+                      View
+                    </div>
+                  </span>
+                </div>
+              </div>
+
+              <ng-template #noProfile>
+                Please search customer using valid account number
+              </ng-template>
+
+              <!-- <div>
+                test test test test
+              </div> -->
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+        <ng-template #profileSummary>
+          <div>
+            <h4 fxLayoutAlign="center center">
+              Profile Summary
+            </h4>
+          </div>
+          <mat-accordion>
+            <div>
+              <mat-expansion-panel (closed)="editProfile = true">
+                <mat-expansion-panel-header>
+                  <mat-panel-title fxFlex="30">
+                    Customer Profile Details
+                  </mat-panel-title>
+                  <mat-panel-description fxFlex="70" fxLayoutAlign="end center">
+                    {{profileDetail.firstname}} {{profileDetail.lastname}}
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+                <div *ngIf="editProfile else updateProfile">
+                  <div>
+                    <span fxFlex="45">Account Number</span>
+                    <span fxFlex="10">:</span>
+                    <span fxFlex="45">{{profileDetail.accountno}}</span>
+                  </div>
+                  <div>
+                    <span fxFlex="45">Account Holder Name</span>
+                    <span fxFlex="10">:</span>
+                    <span fxFlex="45">{{profileDetail.firstname}} {{profileDetail.lastname}}</span>
+                  </div>
+                  <div>
+                    <span fxFlex="45">Contact Number</span>
+                    <span fxFlex="10">:</span>
+                    <span fxFlex="45">{{profileDetail.contactnumber}}</span>
+                  </div>
+                  <div>
+                    <span fxFlex="45">Account Branch</span>
+                    <span fxFlex="10">:</span>
+                    <span fxFlex="45">{{profileDetail.postalcode}}</span>
+                  </div>
+                  <div>
+                    <span fxFlex="45">Account Type</span>
+                    <span fxFlex="10">:</span>
+                    <span fxFlex="45">Savings</span>
+                  </div>
+                  <div>
+                    <span fxFlex="45">Home Address</span>
+                    <span fxFlex="10">:</span>
+                    <span fxFlex="45">Not Available</span>
+                  </div>
+                  <div fxLayoutAlign="end center">
+                    <button mat-raised-button color="accent" type="submit" (click)="editProfile = !editProfile">Edit Profile</button>
+                  </div>
+                </div>
+                
+                <ng-template #updateProfile>
+                  <div fxFlex="80">
+                    <app-addcustomer  [updateProfile] = "profileDetail"></app-addcustomer>
+                  </div>
+                </ng-template>
+              </mat-expansion-panel>
+            </div>
+            
+            <div class="expansion-panel-gap">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title fxFlex="30">
+                    Fixed Deposits
+                  </mat-panel-title>
+                  <mat-panel-description fxFlex="70" fxLayoutAlign="end center">
+
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+              </mat-expansion-panel>
+            </div>
+
+            <div class="expansion-panel-gap">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title fxFlex="30">
+                    Loans Recurred
+                  </mat-panel-title>
+                  <mat-panel-description fxFlex="70" fxLayoutAlign="end center">
+
+                  </mat-panel-description>
+                </mat-expansion-panel-header>
+              </mat-expansion-panel>
+            </div>
+
+          </mat-accordion>
+        </ng-template>
+      </span>
+      <span fxFlex="30">
+        <div>
+          <h4 fxLayoutAlign="center center">
+            Money Calculator
+          </h4>
+        </div>
+        <div>
+          <span fxLayoutAlign="center center">test test test test test test</span>
+        </div>
+      </span>
+
     </div>
+
+
+    <div>
+      <!-- <span>test test test test test test</span> -->
+      <!-- <app-money-calculator></app-money-calculator> -->
+    </div>
+   
   </div>
+</div>
+<div fxLayoutAlign="start center" class="common-back" fxLayoutGap="10px">
+  <button mat-raised-button color="primary"  type="submit"
+        [disabled]="!findCustomerForm.valid" routerLink="/bankuser" color="accent"  >Back</button>
 </div>

@@ -24,22 +24,20 @@ export class TransactionComponent implements OnInit {
     ) { }
 
   ngOnInit( ) {
-    // this.loadProfileData();
     this.listTransactions();
     this.loadProfileData();
   }
 
   public loadProfileData(): void {
-    this.backendApiService.getProfileDetails().subscribe(profile => {
-      console.log('profile', profile._id);
+    this.backendApiService.getCustomerProfile().subscribe(profile => {
       this.getProfileObject = profile;
     });
   }
 
   public listTransactions(): void {
-    this.backendApiService.getProfileDetails().subscribe(profile => {
-    this.backendApiService.getTransactionListByCategory(profile).subscribe( data => {
-      console.log('transactiondata', data);
+    this.backendApiService.getCustomerProfile().subscribe(profile => {
+      const reqUrl = "transaction-list"
+    this.backendApiService.httpServicePost(reqUrl, profile).subscribe( data => {
       const transactions: any = data;
       this.transactionSource = new MatTableDataSource(transactions);
       this.transactionSource.paginator = this.paginator;

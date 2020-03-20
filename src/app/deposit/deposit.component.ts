@@ -16,8 +16,9 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class DepositComponent implements OnInit {
   public setProfileObjectKey: { accountNo, name, pincode, dob };
-  public getProfileObject: { _id, accountno, firstname, lastname, postalcode, datetime };
+  public getProfileObject: { _id, accountno, firstname, lastname, postalcode, datetime, balance };
   public depositForm: FormGroup;
+  public loggedUserData: any;
   constructor(
     private fb: FormBuilder,
     private backendApiService: BackendApiService,
@@ -41,8 +42,8 @@ export class DepositComponent implements OnInit {
   }
 
   public loadProfileData(): void {
-    this.backendApiService.getProfileDetails().subscribe(profile => {
-      console.log('profile', profile._id);
+    this.backendApiService.getCustomerProfile().subscribe(profile => {
+      console.log('profile', profile);
       this.getProfileObject = profile;
     });
   }
@@ -70,17 +71,28 @@ export class DepositComponent implements OnInit {
     }
   }
   public onDepositSubmit() {
-    const loggedUser: any  = this.backendApiService.user;
+    // const loggedUser: any  = this.backendApiService.user;
+    this.backendApiService.getUserProfileDetails().subscribe( loggedUserData => {
+      this.loggedUserData = loggedUserData
+    });
     this.depositForm.value['category'] = this.getProfileObject._id;
     this.depositForm.value['accountno'] = this.getProfileObject.accountno;
-    this.depositForm.value['autherizorName'] = loggedUser.username;
+    this.depositForm.value['autherizorName'] = this.loggedUserData.username;
     this.depositForm.value['mode'] = "deposit";
-    this.backendApiService.makeTransaction(this.depositForm.value).subscribe((makeDeposit: any) => {
+    const reqUrlParam = "transaction"
+    this.backendApiService.httpServicePost(reqUrlParam, this.depositForm.value).subscribe((makeDeposit: any) => {
       if (makeDeposit.success) {
-        this._snackBar.open('Deposit', 'Success', {
-          duration: 2000,
-        });
-
+        this.getProfileObject['balance'] = makeDeposit.transactionData.transactionAmount + this.getProfileObject.balance
+        const updateUrl = 'profile-update/' + this.getProfileObject._id;
+        console.log('profile balance updated', updateUrl, this.getProfileObject);
+          this.backendApiService.httpServicePut(updateUrl, this.getProfileObject).subscribe(data => {
+            console.log('profile-update', data);
+            if (data) {
+              this._snackBar.open('Deposit', 'Success', {
+                duration: 2000,
+              });
+            }
+          })
         const dialogRef = this.dialog.open(PrintTransactionComponent, {
           width: '750px ',
           data: { customerProfile: this.getProfileObject, transactionProfile: makeDeposit}

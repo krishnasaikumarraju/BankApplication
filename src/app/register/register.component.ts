@@ -66,7 +66,8 @@ export class RegisterComponent implements OnInit {
   }
   public onRegisterSubmit(): void{
     var registerData = this.registrationForm.value
-    this.BackendApiService.onRegisterService(registerData).subscribe((registerData : any) => {
+    const registerUrl = "register"
+    this.BackendApiService.httpServicePost(registerUrl, registerData).subscribe((registerData : any) => {
       if(registerData.success){
       this.router.navigate(['authenticate']);
     }

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { BackendApiService } from '../services/backend-api.service';
-// import { CustomerComponent } from '../customer/customer.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { FirebaseOtpComponent } from '../firebase-otp/firebase-otp.component';
@@ -16,8 +15,9 @@ import { PrintTransactionComponent } from '../print-transaction/print-transactio
 export class WithdrawComponent implements OnInit {
 
   public setProfileObjectKey: { accountNo, name, pincode, dob };
-  public getProfileObject: { _id, accountno, firstname, lastname, postalcode, datetime };
+  public getProfileObject: { _id, accountno, firstname, lastname, postalcode, datetime, contactnumber, balance };
   public withdrawForm: FormGroup;
+  public loggedUserData: any;
 
   constructor(
     private fb: FormBuilder,
@@ -29,14 +29,16 @@ export class WithdrawComponent implements OnInit {
 
   ngOnInit() {
     this.loadWithdrawForm();
-    // this.setProfileObject();
     this.loadProfileData();
   }
 
   public onWithdrawSubmit(): void {
     const dialogRef = this.dialog.open(FirebaseOtpComponent, {
       width: '250px',
-      data: {}
+      data: { 
+        verificationType: 'Withdraw',
+        contactnumber: this.getProfileObject.contactnumber
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -49,17 +51,28 @@ export class WithdrawComponent implements OnInit {
         this._snackBar.open('Mobile Number Verified', 'Success', {
           duration: 2000,
         });
-        const loggedUser: any  = this.backendApiService.user;
+        this.backendApiService.getUserProfileDetails().subscribe( loggedUserData => {
+          this.loggedUserData = loggedUserData
+        });
         this.withdrawForm.value['category'] = this.getProfileObject._id;
         this.withdrawForm.value['accountno'] = this.getProfileObject.accountno;
-        this.withdrawForm.value['autherizorName'] = loggedUser.username;
+        this.withdrawForm.value['autherizorName'] = this.loggedUserData.username;
         this.withdrawForm.value['mode'] = "withdraw";
-        this.backendApiService.makeTransaction(this.withdrawForm.value).subscribe((makeWithdraw: any) => {
+        const reqUrlParam = "transaction"
+        this.backendApiService.httpServicePost(reqUrlParam, this.withdrawForm.value).subscribe((makeWithdraw: any) => {
           if (makeWithdraw.success) {
-            this._snackBar.open('Withdraw', 'Success', {
-              duration: 2000,
-            });
 
+            this.getProfileObject['balance'] = makeWithdraw.transactionData.transactionAmount + this.getProfileObject.balance
+        const updateUrl = 'profile-update/' + this.getProfileObject._id;
+        console.log('profile balance updated', updateUrl, this.getProfileObject);
+          this.backendApiService.httpServicePut(updateUrl, this.getProfileObject).subscribe(data => {
+            console.log('profile-update', data);
+            if (data) {
+              this._snackBar.open('Withdraw', 'Success', {
+                duration: 2000,
+              });
+            }
+          })
             const dialogRef = this.dialog.open(PrintTransactionComponent, {
               width: '750px ',
               data: { customerProfile: this.getProfileObject, transactionProfile: makeWithdraw }
@@ -82,7 +95,7 @@ export class WithdrawComponent implements OnInit {
   };
 
   public loadProfileData(): void {
-    this.backendApiService.getProfileDetails().subscribe(profile => {
+    this.backendApiService.getCustomerProfile().subscribe(profile => {
       console.log('profile', profile._id);
       this.getProfileObject = profile;
     });
@@ -102,7 +115,6 @@ export class WithdrawComponent implements OnInit {
   }
 
   public subtractWithdrawAmount() {
-    console.log('withdraw form data', this.withdrawForm.value);
     if (this.withdrawForm.value.transactionAmount > 500) {
       const getOperationValue = Math.floor(this.withdrawForm.value.transactionAmount / 2);
       this.withdrawForm.value.transactionAmount = getOperationValue;

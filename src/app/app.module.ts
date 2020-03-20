@@ -43,6 +43,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 
 // import {MatButtonModule, MatCheckboxModule, MatInputModule, MatTableModule, MatPaginatorModule} from '@angular/material';
@@ -95,10 +96,22 @@ import { MoneyCalculatorComponent } from './money-calculator/money-calculator.co
     MatTableModule,
     MatDialogModule,
     MatPaginatorModule,
+    MatExpansionModule,
     FlexLayoutModule
 
   ],
-  exports: [MatButtonModule, ReactiveFormsModule, MatDialogModule, MatSnackBarModule, MatCheckboxModule, MatInputModule, MatDatepickerModule, MatTableModule, MatPaginatorModule],
+  exports: [
+    MatButtonModule, 
+    ReactiveFormsModule, 
+    MatDialogModule, 
+    MatSnackBarModule, 
+    MatCheckboxModule, 
+    MatInputModule, 
+    MatDatepickerModule, 
+    MatTableModule,
+    MatPaginatorModule,
+    MatExpansionModule
+    ],
   // Backend Api call
   providers: [BackendApiService, AuthGuard, MatDialogModule],
 

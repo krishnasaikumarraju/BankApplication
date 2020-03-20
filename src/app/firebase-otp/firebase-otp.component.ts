@@ -14,6 +14,7 @@ export interface DialogData {
 
 export class FirebaseOtpComponent implements OnInit, AfterViewInit {
   public otpForm: FormGroup;
+  public popupValidationData: any ;
   public phoneRecaptchaVerifier: firebase.auth.RecaptchaVerifier;
   sent;
   constructor(
@@ -24,8 +25,9 @@ export class FirebaseOtpComponent implements OnInit, AfterViewInit {
   ) { }
 
   ngOnInit(): void {
+    this.popupValidationData = this.data;
     this.firebaseInitialization();
-    this.loadOtpForm();
+    this.loadOtpForm(this.data);
     this.phoneRecaptchaVerifier = new firebase.auth.RecaptchaVerifier('phone-recaptcha-container', {
       'size': 'invisible',
       'callback': function(response) {
@@ -55,9 +57,9 @@ export class FirebaseOtpComponent implements OnInit, AfterViewInit {
     }
   }
 
-  public loadOtpForm() {
+  public loadOtpForm(object?) {
     this.otpForm = this.fb.group({
-      "mobileNumber": ['', Validators.required]
+      "mobileNumber": [object.contactnumber? object.contactnumber: '', Validators.required]
     });
   }
 

@@ -9,6 +9,18 @@ const Transaction = require('../models/transaction');
 const User = require('../models/user')
 const Customer = require('../models/customer')
 
+router.put('/profile-update/:id', (req, res) => {
+    console.log('profile update', req.body, req.params.id);
+    let newUpdateBody = new Customer(req.body);
+    const customerIdQuery = { _id: req.params.id }
+    console.log('customeriD queruy', customerIdQuery);
+    controller.updateCustomerProfileDetails(customerIdQuery, newUpdateBody, (err, updatedDetails) => {
+        if (updatedDetails) {
+            res.send(updatedDetails);
+        }
+    })
+});
+
 /* Register */
 router.post('/register', (req, res) => {
     let newUser = new User(req.body)
@@ -73,7 +85,7 @@ router.post('/transaction', (req, res) => {
         if (err) {
             res.json({ success: false, msg: 'Failed to make transaction', transactionData: '' })
         } else {
-            res.json({ success: true, msg: 'Transaction made successfully', transactionData:  successData})
+            res.json({ success: true, msg: 'Transaction made successfully', transactionData: successData })
         }
     });
 });

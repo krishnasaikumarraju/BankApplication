@@ -15,10 +15,9 @@ export class LoginComponent implements OnInit {
   loginData: {success:any};
   constructor(
     private fb : FormBuilder, 
-    private BackendApiService: BackendApiService, 
+    private backendApiService: BackendApiService, 
     private router: Router,
     private _snackBar: MatSnackBar,
-
     ) {
 
   }
@@ -28,17 +27,18 @@ export class LoginComponent implements OnInit {
   }
   public onLoginSubmit(): void{
     const loginData = this.LoginForm.value
-    
-    this.BackendApiService.OnLoginService(loginData).subscribe((loginData:any) => {
-      console.log('log data', loginData);
+    const reqLoginUrl = "authenticate"
+    this.backendApiService.httpServicePost(reqLoginUrl, loginData).subscribe((loginData:any) => {
       if(loginData.success){
-        this.BackendApiService.storeUserData(loginData.token, loginData.user);
+        localStorage.setItem('id_token', loginData.token);
+        localStorage.setItem('user', JSON.stringify(loginData.user));
+        this.backendApiService.setUserProfileDetails(loginData.user);
+        this.backendApiService.setAuthToken(localStorage.getItem('id_token'));
         this._snackBar.open('Logged In', 'Success', {
           duration: 2000,
         });
         this.router.navigate(['bankuser'])
       }
-      console.log("post request for user login is succesful", loginData);
     }, error => {
       console.log("error", error);
     });

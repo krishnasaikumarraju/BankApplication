@@ -12,12 +12,15 @@ export class CustomerProfileDetailedComponent implements OnInit {
     private backendApiService: BackendApiService,
   ) { }
 
+  
   ngOnInit(): void {
+    console.log('profile details');
     this.getCustomerProfileDetail();
   }
 
   public getCustomerProfileDetail(): void {
     this.backendApiService.getCustomerProfile().subscribe( profile => {
+      console.log('profile details', profile);
     })
   }
 

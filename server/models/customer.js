@@ -21,6 +21,18 @@ const addCustomerSchema = new Schema({
         type: Number,
         required: true
     },
+    contactnumber: {
+        type: Number,
+        required: true
+    },
+    accounttype: {
+        type: String,
+        default: "savings"
+    },
+    balance:{
+        type: Number,
+        default: 0
+    },
     datetime: {
         type: Date,
         default: Date.now

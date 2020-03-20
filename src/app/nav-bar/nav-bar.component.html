@@ -1,16 +1,24 @@
 <div>
     <div>
-        <span fxFlex="60" fxLayoutAlign="start center">
+        <span fxFlex="8" fxLayoutAlign="start center">
             <button mat-raised-button color="accent" routerLink="/home">Home</button>
         </span>
-        <span *ngIf="checkToken === '' " fxFlex="40" fxLayoutAlign="end center" fxLayoutGap="10px">
+        <span fxFlex="40" fxLayoutAlign="start center">
+           <h5 fxFlex="12">Welcome,</h5>  <div fxFlex="88" *ngIf="userProfile.username else guestUser">
+                {{userProfile.username}}
+            </div>
+            <ng-template #guestUser>
+                Guest User
+            </ng-template>
+        </span>
+        <span *ngIf="!checkToken" fxFlex="52" fxLayoutAlign="end center" fxLayoutGap="10px">
             <span>
                 <button mat-raised-button color="accent" routerLink="/authenticate">Login</button> </span>
-            <span >
+            <span>
                 <button mat-raised-button color="primary" routerLink="/register">Register</button>
             </span>
         </span>
-        <span *ngIf="checkToken !== ''" fxLayoutAlign="end center" fxFlex="40">
+        <span *ngIf="checkToken" fxLayoutAlign="end center" fxFlex="52">
             <button mat-raised-button color="accent" (click)="onLogoutSubmit()">Logout</button>
         </span>
     </div>

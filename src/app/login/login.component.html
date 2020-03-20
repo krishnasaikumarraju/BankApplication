@@ -1,13 +1,21 @@
-<h2 class="form-head"> Login </h2>
-
-<form class="form-form" [formGroup]="LoginForm">
-    <mat-form-field class="form-full-width">
-        <input matInput type="text" placeholder="Username" formControlName="username">
-    </mat-form-field>
-    <mat-form-field class="form-full-width">
-        <input matInput type="password" placeholder="Password" formControlName="password">
-    </mat-form-field>
-    <button mat-raised-button color="primary" class="form-button" type="submit" [disabled]="!LoginForm.valid" (click)="onLoginSubmit()">Submit</button>
-</form>
-
-
+<div>
+    <div >
+        <div >
+            <h3  class="login-header" fxLayoutAlign="start center"> Login </h3>
+        <!-- </div> -->
+        <!-- <div> -->
+            <form  class="form-form" [formGroup]="LoginForm">
+                <mat-form-field class="form-full-width">
+                    <input matInput type="text" placeholder="Username" formControlName="username">
+                </mat-form-field>
+                <mat-form-field class="form-full-width">
+                    <input matInput type="password" placeholder="Password" formControlName="password">
+                </mat-form-field>
+                <button mat-raised-button color="primary" class="form-button" type="submit" [disabled]="!LoginForm.valid"
+                    (click)="onLoginSubmit()">Submit</button>
+            </form>
+        </div>
+        
+    </div>
+    
+</div>

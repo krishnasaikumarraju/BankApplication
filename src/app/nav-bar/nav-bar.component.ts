@@ -9,22 +9,31 @@ import 'rxjs';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-  public checkToken = '' ;
+  public checkToken;
+  public guestUser = 'Guest User';
+  public userProfile: any;
   constructor(private backendApiService : BackendApiService, private router : Router) { }
 
 
   ngOnInit() {
+    this.getUserProfileDetails();
     this.tokenValidation();
+  }
+  private getUserProfileDetails(){
+    this.backendApiService.getUserProfileDetails().subscribe( profile => {
+      this.userProfile = profile;
+    });
   }
   private tokenValidation() {
     this.backendApiService.getAuthToken().subscribe( getToken => {
-      this.checkToken = getToken;
+    this.checkToken = getToken;
     })
   }
   public onLogoutSubmit(){
     this.backendApiService.logout();
-    this.router.navigate(['/authenticate']);
+    this.router.navigate(['/home']);
     return false;
+
   }
 
 }

@@ -4,7 +4,9 @@ const bcrypt = require('bcryptjs');
 const config = require('../config/database');
 const transaction = require ('../models/transaction')
 
-
+module.exports.updateCustomerProfileDetails = function ( idQuery, body, callback) {
+    Customer.findOneAndUpdate(idQuery, body, callback);
+}
 module.exports.getUserById = function (id, callback) {
     User.findById(id, callback);
 }

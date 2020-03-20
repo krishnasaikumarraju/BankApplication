@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 })
 export class CustomersearchComponent implements OnInit {
   public findCustomerForm: FormGroup;
+  public accountSummary: boolean = true;
+  public editProfile : boolean = true;
+  public profileDetail: {accountno: Number , firstname: string, lastname: string, postalcode: number} ;
   constructor(
     private fb : FormBuilder, 
     private backendApiService: BackendApiService, 
@@ -29,11 +32,15 @@ export class CustomersearchComponent implements OnInit {
   }
  
   public onSearchSubmit(): void{
-   var accountno = this.findCustomerForm.value;
-   this.backendApiService.searchcustomer(accountno).subscribe( profileData => {
-     this.backendApiService.setCustomerProfile(profileData);
+    this.accountSummary = true;
+   const accountno = this.findCustomerForm.value;
+   const reqUrlParam = "profile";
+   this.backendApiService.httpServicePost(reqUrlParam, accountno).subscribe( profileData => {
+     this.profileDetail = profileData[0];
    });
-   this.router.navigate(['/customer-profile'])
+  }
+  public profileDetailedPage() {
+   this.accountSummary = false;
   }
 
 }

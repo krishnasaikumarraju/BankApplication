@@ -17,7 +17,7 @@ import {AuthGuard} from './guards/auth.guard';
 
 const routes: Routes = 
 [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: '', redirectTo: 'customer-profile', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'authenticate', component: LoginComponent,  },
   { path: 'register', component: RegisterComponent },
@@ -25,12 +25,12 @@ const routes: Routes =
   { path: 'bankmanager', component: BankmanagerComponent, canActivate: [AuthGuard] },
   { path: 'customer', component: CustomerComponent, canActivate: [AuthGuard] },
   { path: 'addcustomeraccount', component: AddcustomerComponent, canActivate: [AuthGuard] },
-  { path: 'customersearch', component: CustomersearchComponent },
+  { path: 'customersearch', component: CustomersearchComponent, canActivate: [AuthGuard] },
   { path: 'transaction', component: TransactionComponent, canActivate: [AuthGuard] },
   { path: 'deposit', component: DepositComponent, canActivate: [AuthGuard]},
   { path: 'withdraw', component: WithdrawComponent, canActivate: [AuthGuard] },
   // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-{ path: 'customer-profile', loadChildren: () => import('./customer-profile-detailed/customer-profile-detailed.module').then(m => m.CustomerProfileDetailedModule), canActivate: [AuthGuard] },
+{ path: 'customer-profile', loadChildren: () => import('./customer-profile-detailed/customer-profile-detailed.module').then(m => m.CustomerProfileDetailedModule) },
   
 ];
 
